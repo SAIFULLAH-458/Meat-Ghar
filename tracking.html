@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Prime Cuts Co.</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tracking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar glass-nav">
+        <div class="nav-left">
+            <button class="back-btn glass-btn" onclick="location.href='index.html'">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <span class="company-name">Prime Cuts Co.</span>
+        </div>
+        <button class="hamburger-menu" id="hamburgerBtn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-center">
+            <a href="index.html#home" class="nav-link glass-capsule">Home</a>
+            <a href="index.html#about" class="nav-link glass-capsule">About</a>
+            <a href="index.html#reviews" class="nav-link glass-capsule">Reviews</a>
+            <a href="order-selection.html" class="nav-link glass-capsule">Order</a>
+            <a href="cart.html" class="nav-link glass-capsule">Cart</a>
+            <a href="tracking.html" class="nav-link glass-capsule">Tracking</a>
+        </div>
+    </nav>
+
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-content">
+            <a href="index.html#home" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+            <a href="index.html#about" class="mobile-nav-link" onclick="closeMobileMenu()">About</a>
+            <a href="index.html#reviews" class="mobile-nav-link" onclick="closeMobileMenu()">Reviews</a>
+            <a href="order-selection.html" class="mobile-nav-link" onclick="closeMobileMenu()">Order</a>
+            <a href="cart.html" class="mobile-nav-link" onclick="closeMobileMenu()">Cart</a>
+            <a href="tracking.html" class="mobile-nav-link" onclick="closeMobileMenu()">Tracking</a>
+        </div>
+    </div>
+
+    <!-- Tracking Section -->
+    <section class="tracking-section">
+        <div class="section-title">
+            <h2 class="glass-title">Track Your Order</h2>
+        </div>
+
+        <div class="tracking-content">
+            <!-- Current Orders -->
+            <div class="current-orders">
+                <h3>Active Orders</h3>
+                <div id="active-orders-container">
+                    <!-- Active orders will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Order History -->
+            <div class="order-history">
+                <h3>Order History</h3>
+                <div id="order-history-container">
+                    <!-- Order history will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="tracking.js"></script>
+</body>
+</html>
