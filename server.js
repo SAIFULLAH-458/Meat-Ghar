@@ -13,6 +13,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files (only allow specific file types for security)
+// This middleware filters requests to prevent access to sensitive files
+// like .env, package.json, and server.js while allowing HTML, CSS, JS, and images
 const serveStaticWithFilter = (req, res, next) => {
     const allowedExtensions = ['.html', '.css', '.js', '.jpg', '.png', '.jpeg', '.gif', '.svg', '.ico'];
     const path = require('path');
@@ -32,7 +34,9 @@ const serveStaticWithFilter = (req, res, next) => {
 };
 
 app.use(serveStaticWithFilter);
-app.use(express.static(__dirname)); // Serve static files
+// NOTE: express.static serves from __dirname but is protected by the filter above
+// For production, consider moving static files to a dedicated 'public' directory
+app.use(express.static(__dirname));
 
 // Twilio Configuration
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
