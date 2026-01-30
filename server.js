@@ -11,6 +11,27 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve static files (only allow specific file types for security)
+const serveStaticWithFilter = (req, res, next) => {
+    const allowedExtensions = ['.html', '.css', '.js', '.jpg', '.png', '.jpeg', '.gif', '.svg', '.ico'];
+    const path = require('path');
+    const ext = path.extname(req.path).toLowerCase();
+    
+    // Block access to sensitive files
+    const blockedFiles = ['.env', '.env.example', 'package.json', 'package-lock.json', 'server.js', 'node_modules'];
+    const fileName = path.basename(req.path);
+    
+    // If it's a blocked file or doesn't have an allowed extension, skip
+    if (blockedFiles.some(blocked => fileName.includes(blocked)) || 
+        (ext && !allowedExtensions.includes(ext))) {
+        return res.status(404).send('Not Found');
+    }
+    
+    next();
+};
+
+app.use(serveStaticWithFilter);
 app.use(express.static(__dirname)); // Serve static files
 
 // Twilio Configuration
