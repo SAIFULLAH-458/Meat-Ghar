@@ -78,6 +78,9 @@ function placeOrder(event) {
     orders.push(order);
     localStorage.setItem('orders', JSON.stringify(orders));
 
+    // Send WhatsApp notification
+    sendOrderNotification(order);
+
     // Update stock (reduce quantities)
     updateStockAfterOrder(order.items);
 
@@ -103,6 +106,30 @@ function updateStockAfterOrder(orderItems) {
     });
     
     localStorage.setItem('stockData', JSON.stringify(stockData));
+}
+
+// Send order notification to WhatsApp
+async function sendOrderNotification(order) {
+    try {
+        const response = await fetch('http://localhost:3000/api/send-order-notification', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ order })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            console.log('WhatsApp notifications sent successfully:', result.notifications);
+        } else {
+            console.warn('WhatsApp notification failed:', result.error);
+        }
+    } catch (error) {
+        // Fail silently - don't block order placement if notification fails
+        console.error('Error sending WhatsApp notification:', error);
+    }
 }
 
 function showOrderSuccessModal(orderId) {
